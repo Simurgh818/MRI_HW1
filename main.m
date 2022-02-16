@@ -16,17 +16,15 @@ w_rf = 63.835e6;
 delta_w_rf = 2550;
 alpha = 90; 
 gamma = 42.5e6;
-T = [0.5, 0.1, 1.5];
+T = [0.5, 1.0, 1.5];
 for p=1: length(T)
 
-    time = [0:0.001:T(p)];
+    time = [0:0.01:T(p)];
     Gauss = zeros(1, length(time));
     B1 = zeros(1,length(time));
     
     for t=1:length(time)
-%         B1(t) = alpha/(gamma*time(t));
         Gauss(t) = exp(-(time(t)-0.5*T(p))^2/(2*(T(p))^2));
-%         B1(t) = Gauss(t)* alpha/(gamma*time(t));
         B1(t) = Gauss(t)* (cos(w_rf*time(t)+alpha) +...
             sin(w_rf*time(t) +alpha));
     
