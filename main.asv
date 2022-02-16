@@ -21,10 +21,10 @@ for p=1: length(T)
 
     time = [0:0.01:T(p)];
     Gauss = zeros(1, length(time));
-    B1 = zeros(1,length(time));
+    B1 = z'eros(1,length(time));
     
     for t=1:length(time)
-        Gauss(t) = exp(-(time(t)-0.5*T(p))^2/(2*(0.25*T(p))^2));
+        Gauss(t) = exp(-(time(t)-0.5*T(p))^2/(2*(T(p))^2));
         B1(t) = Gauss(t)* (cos(w_rf*time(t)+alpha) +...
             sin(w_rf*time(t) +alpha));
     
