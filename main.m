@@ -19,15 +19,16 @@ gamma = 42.5e6;
 T = [0.5, 0.1, 1.5];
 for p=1: length(T)
 
-    time = [0:0.01:T(p)];
+    time = [0:0.001:T(p)];
     Gauss = zeros(1, length(time));
     B1 = zeros(1,length(time));
     
     for t=1:length(time)
-        B1(t) = alpha/(gamma*time(t));
-    %     Gauss(t) = exp(-(time(t)-w_rf)^2/(2*(delta_w_rf)^2));
-    %     B1(t) = Gauss(t)* (cos(w_rf*time(t)+alpha)*1i +...
-    %         sin(w_rf*time(t) +alpha)*1j);
+%         B1(t) = alpha/(gamma*time(t));
+        Gauss(t) = exp(-(time(t)-0.5*T(p))^2/(2*(T(p))^2));
+%         B1(t) = Gauss(t)* alpha/(gamma*time(t));
+        B1(t) = Gauss(t)* (cos(w_rf*time(t)+alpha) +...
+            sin(w_rf*time(t) +alpha));
     
     end
     subplot(3,1,p)
