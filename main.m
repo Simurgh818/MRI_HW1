@@ -32,24 +32,26 @@ for p=1: length(T)
     subplot(3,1,p)
     plot(time, B1)
     xlabel('msec')
-    ylabel('Tesla')
+    ylabel('B1 (Tesla)')
 
 end
 %% Problem 2
 T1_gray = 920e-3;
 T1_white = 780e-3;
-alpha = 45;
+alpha = pi/4; % 45 degree in radians is pi/4
 TR = 100e-3; 
 num_pulse = 20;
-time = 0:0.01:100;
+time = 0:100:20000;
 Mz_grey = zeros(1, length(time));
 Mz_white = zeros(1, length(time));
-syms M0
+
 Mz_grey(1) = cos(alpha)*exp(-time(1)/T1_gray);
+Mz_white(1) = cos(alpha)*exp(-time(1)/T1_white);
 for p=1:20
     
-    for t=1:length(time)
+    for t=2:length(time)
 %         Mz_grey(t) = M0*cos(alpha)*exp(-time(t)/T1_gray);
+        Mz_white(t) = Mz_pulse(alpha, T1_white);
 
     end
 end
