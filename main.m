@@ -37,7 +37,7 @@ for p=1: length(T)
 end
 %% Problem 2
 T1_gray = 920;% in msec
-T1_white = 780; % in msec
+T1_white = 600; % in msec
 alpha = pi/4; % 45 degree in radians is pi/4
 TR = 100; % in msec
 num_pulse = 20;
@@ -48,15 +48,15 @@ Mz_white = zeros(1, length(time));
 Mz_grey(1) = cos(alpha)*exp(-time(1)/T1_gray);
 Mz_white(1) = cos(alpha)*exp(-time(1)/T1_white);
 Mz_white_initial = Mz_white(1);
-for p=1:20
+for p=1:num_pulse
     
     for t=2:length(time)
-%         Mz_grey(t) = M0*cos(alpha)*exp(-time(t)/T1_gray);
+
         if mod(time(t),TR)==0
-            Mz_white(t) = Mz_pulse(alpha, T1_white, TR);
-            Mz_white_initial = Mz_white(t);
+            Mz_white(t) = Mz_pulse(alpha, T1_white, TR, Mz_white_initial);
+%             Mz_white_initial = Mz_white(t);
         else
-            Mz_white(t) = Mz_white_initial+(1-exp(-time(t)/T1_white));
+            Mz_white(t) = Mz_white_initial*exp(-time(t)/T1_white)+(1-exp(-time(t)/T1_white));
         end
     end
 end
