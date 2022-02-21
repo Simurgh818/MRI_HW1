@@ -36,7 +36,7 @@ for p=1: length(T)
 
 end
 %% Problem 2
-T1_gray = 920;% in msec
+T1_grey = 920;% in msec
 T1_white = 600; % in msec
 alpha = pi/4; % 45 degree in radians is pi/4
 TR = 100; % in msec
@@ -45,19 +45,33 @@ time = 0:1:2000;
 Mz_grey = zeros(1, length(time));
 Mz_white = zeros(1, length(time));
 
-Mz_grey(1) = cos(alpha)*exp(-time(1)/T1_gray);
+Mz_grey(1) = cos(alpha)*exp(-time(1)/T1_grey);
 Mz_white(1) = cos(alpha)*exp(-time(1)/T1_white);
-Mz_white_initial = Mz_white(1);
-for p=1:num_pulse
-    
-    for t=2:length(time)
 
-        if mod(time(t),TR)==0
-            Mz_white(t) = Mz_pulse(alpha, T1_white, TR, Mz_white_initial);
-%             Mz_white_initial = Mz_white(t);
-        else
-            Mz_white(t) = Mz_white_initial*exp(-time(t)/T1_white)+(1-exp(-time(t)/T1_white));
-        end
+Mz_white_initial = Mz_white(1);
+Mz_grey_initial = Mz_grey(1);
+lastPulse_t = 0;
+    
+for t=2:length(time)
+    
+    if mod(time(t),TR)==0
+        Mz_white(t) = Mz_pulse(alpha, T1_white, TR, Mz_white(t-1));
+        Mz_white_initial = Mz_white(t);
+
+        Mz_grey(t) = Mz_pulse(alpha, T1_grey, TR, Mz_grey(t-1));
+        Mz_grey_initial = Mz_grey(t);
+
+        lastPulse_t = time(t);
+    else
+        delta_t = time(t)-lastPulse_t;
+        Mz_white(t) = Mz_white_initial*exp(-delta_t/T1_white)+(1-exp(-delta_t/T1_white));
+        Mz_grey(t) = Mz_grey_initial*exp(-delta_t/T1_grey)+(1-exp(-delta_t/T1_grey));
     end
 end
 
+figure()
+plot(time, Mz_white, time, Mz_grey)
+xlabel('msec')
+ylabel('B1 (Tesla)')
+legend('Mz White', 'Mz Grey')
+title(['Mz after 20 pulses with TR of 100 (msec)'] )
