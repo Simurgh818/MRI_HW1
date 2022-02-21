@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 w_rf = 63.835e6; 
 delta_w_rf = 2550;
-alpha = 90; 
+alpha = pi/4; 
 gamma = 42.5e6;
 T = [0.5, 1.0, 1.5];
 for p=1: length(T)
@@ -29,16 +29,16 @@ for p=1: length(T)
             sin(w_rf*time(t) +alpha));
     
     end
-%     subplot(3,1,p)
-%     plot(time, B1)
-%     xlabel('msec')
-%     ylabel('B1 (Tesla)')
+    subplot(3,1,p)
+    plot(time, B1)
+    xlabel('msec')
+    ylabel('B1 (Tesla)')
 
 end
 %% Problem 2
 T1_grey = 920;% in msec
 T1_white = 600; % in msec
-alpha = pi/6; % 45 degree in radians is pi/4
+alpha = pi/4; % 45 degree in radians is pi/4
 TR = 100; % in msec
 num_pulse = 20;
 time = 0:1:2000;
