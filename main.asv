@@ -38,7 +38,7 @@ end
 %% Problem 2
 T1_grey = 920;% in msec
 T1_white = 600; % in msec
-alpha = pi/6; % 45 degree in radians is pi/4
+alpha = pi/3; % 45 degree in radians is pi/4
 TR = 100; % in msec
 num_pulse = 20;
 time = 0:1:2000;
@@ -73,5 +73,5 @@ figure()
 plot(time, Mz_white, time, Mz_grey)
 xlabel('msec')
 ylabel('B1 (Tesla)')
-legend('Mz White', 'Mz Grey') 
-title(['Mz with TR of 100 msec, alpha of ', num2str(rad2deg(alpha)), ' degrees'] )
+legend('Mz White', 'Mz Grey')
+title(['Mz after 20 pulses with TR of ', num2str(TR), ' (msec)'] )
