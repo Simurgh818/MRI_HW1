@@ -14,7 +14,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 w_rf = 63.835e6; 
 delta_w_rf = 2550;
-alpha = pi/4; 
+phi = 0; 
 gamma = 42.5e6;
 T = [0.5, 1.0, 1.5];
 for p=1: length(T)
@@ -25,8 +25,8 @@ for p=1: length(T)
     
     for t=1:length(time)
         Gauss(t) = exp(-(time(t)-0.5*T(p))^2/(2*(0.25*T(p))^2));
-        B1(t) = Gauss(t)* (cos(w_rf*time(t)+alpha) +...
-            sin(w_rf*time(t) +alpha));
+        B1(t) = Gauss(t)* (cos(w_rf*time(t)+phi) +...
+            sin(w_rf*time(t) +phi));
     
     end
     subplot(3,1,p)
